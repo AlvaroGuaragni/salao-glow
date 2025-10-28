@@ -13,5 +13,6 @@ class AgendamentoSeeder extends Seeder
     public function run(): void
     {
         //
+        
     }
 }
