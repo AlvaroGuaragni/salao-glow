@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
 {
-    /** @use HasFactory<\Database\Factories\ClienteFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'nome',
+        'email',
+        'telefone',
+        'cpf',
+    ];
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
 }
