@@ -22,28 +22,14 @@ class ClienteController extends Controller
 
         $clientes = $query->get();
 
-        return view('cliente.clientes', compact('clientes'));
+        return view('cliente.list', compact('clientes'));
     }
 
     public function create()
     {
-        $categorias = Agendamento::all();
+        $agendamentos = Agendamento::all();
         $dado = new Cliente();
-        return view('cliente.clienteCadastrar', compact('dado', 'agendamentoss'));
-    }
-
-    public function store(StoreClienteRequest $request)
-    {
-        $dadosValidados = $request->validated();
-
-        if ($request->hasFile('imagem')) {
-            $caminhoImagem = $request->file('imagem')->store('public/clientes');
-            $dadosValidados['imagem'] = str_replace('public/', '', $caminhoImagem);
-        }
-
-        Cliente::create($dadosValidados);
-
-        return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado!');
+        return view('cliente.clienteCadastrar', compact('dado', 'agendamentos'));
     }
 
     public function edit(Cliente $cliente)

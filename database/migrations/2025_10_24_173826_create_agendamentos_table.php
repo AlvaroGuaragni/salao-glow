@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('status', 50);
             $table->text('observacoes')->nullable();
             $table->unsignedBigInteger('cliente_id');
-            $table->foreign('cliente_id')->references('id')->on('cliente')->onDelete;            $table->timestamps();
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete;
+            $table->timestamps();
         });
     }
 

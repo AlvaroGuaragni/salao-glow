@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\servico;
+use App\Models\Servico;
 use Illuminate\Http\Request;
 
 class ServicoController extends Controller
@@ -34,7 +34,7 @@ class ServicoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(servico $servico)
+    public function show(Servico $servico)
     {
         //
     }
@@ -42,7 +42,7 @@ class ServicoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(servico $servico)
+    public function edit(Servico $servico)
     {
         //
     }
@@ -50,7 +50,7 @@ class ServicoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, servico $servico)
+    public function update(Request $request, Servico $servico)
     {
         //
     }
@@ -58,7 +58,7 @@ class ServicoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(servico $servico)
+    public function destroy(Servico $servico)
     {
         //
     }

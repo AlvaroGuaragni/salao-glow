@@ -16,8 +16,4 @@ class Cliente extends Model
         'cpf',
     ];
 
-    public function categoria()
-    {
-        return $this->belongsTo(Categoria::class);
-    }
 }
