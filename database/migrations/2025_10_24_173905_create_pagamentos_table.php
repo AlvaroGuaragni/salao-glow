@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pagamento', function (Blueprint $table) {
+        Schema::create('pagamentos', function (Blueprint $table) {
             $table->id();
-            $table->float('valor', 8, 2);
-            $table->string('metodo', 100);
-            $table->dateTime('data_pagamento'); 
             $table->unsignedBigInteger('agendamento_id');
-            $table->foreign('agendamento_id')->references('id')->on('agendamento')->onDelete('cascade');
+            $table->decimal('valor', 8, 2);
+            $table->string('metodo', 50);
+            $table->string('status', 50);
             $table->timestamps();
+            
+            $table->foreign('agendamento_id')->references('id')->on('agendamentos')->onDelete('cascade');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pagamento');
+        Schema::dropIfExists('pagamentos');
     }
 };

@@ -7,59 +7,63 @@ use Illuminate\Http\Request;
 
 class ServicoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Servico::query();
+
+        if ($request->has('busca')) {
+            $busca = $request->input('busca');
+            $query->where('nome', 'like', "%{$busca}%")
+                  ->orWhere('descricao', 'like', "%{$busca}%");
+        }
+
+        $servicos = $query->orderBy('nome')->get();
+
+        return view('servicos.list', compact('servicos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $servico = new Servico();
+        return view('servicos.form', compact('servico'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'descricao' => 'nullable|string',
+            'preco' => 'required|numeric|min:0',
+            'duracao' => 'required|integer|min:1',
+        ]);
+
+        Servico::create($request->all());
+
+        return redirect()->route('servicos.index')->with('success', 'Serviço cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Servico $servico)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Servico $servico)
     {
-        //
+        return view('servicos.form', compact('servico'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Servico $servico)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'descricao' => 'nullable|string',
+            'preco' => 'required|numeric|min:0',
+            'duracao' => 'required|integer|min:1',
+        ]);
+
+        $servico->update($request->all());
+
+        return redirect()->route('servicos.index')->with('success', 'Serviço atualizado com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Servico $servico)
     {
-        //
+        $servico->delete();
+        return redirect()->route('servicos.index')->with('success', 'Serviço removido com sucesso!');
     }
 }

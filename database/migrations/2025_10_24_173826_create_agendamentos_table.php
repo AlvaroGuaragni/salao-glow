@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('agendamento', function (Blueprint $table) {
+        Schema::create('agendamentos', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('data_hora');
-            $table->string('servico', 250);
-            $table->float('valor', 8, 2);
-            $table->string('status', 50);
-            $table->text('observacoes')->nullable();
             $table->unsignedBigInteger('cliente_id');
-            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete;
+            $table->unsignedBigInteger('servico_id');
+            $table->dateTime('data_hora');
+            $table->string('status', 50);
             $table->timestamps();
+            
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
+            $table->foreign('servico_id')->references('id')->on('servicos')->onDelete('cascade');
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('agendamento');
+        Schema::dropIfExists('agendamentos');
     }
 };

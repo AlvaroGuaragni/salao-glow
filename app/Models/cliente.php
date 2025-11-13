@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Agendamento;
 
 class Cliente extends Model
 {
@@ -16,4 +17,8 @@ class Cliente extends Model
         'cpf',
     ];
 
+    public function agendamentos()
+    {
+        return $this->hasMany(Agendamento::class);
+    }
 }
