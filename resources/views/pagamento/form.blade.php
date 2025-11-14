@@ -1,4 +1,5 @@
-@extends('base')
+@extends('layouts.base') {{-- Corrigido de 'base' para 'layouts.base' --}}
+
 @section('title', isset($pagamento->id) ? 'Editar Pagamento' : 'Novo Pagamento')
 
 @section('content')

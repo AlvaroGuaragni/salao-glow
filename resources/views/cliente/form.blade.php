@@ -1,4 +1,5 @@
-@extends('base')
+@extends('layouts.base') {{-- Corrigido de 'base' para 'layouts.base' --}}
+
 @section('title', isset($cliente->id) ? 'Editar Cliente' : 'Novo Cliente')
 
 @section('content')

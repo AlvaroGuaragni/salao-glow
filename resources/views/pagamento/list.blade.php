@@ -1,4 +1,5 @@
-@extends('base')
+@extends('layouts.base')
+
 @section('title', 'Lista de Pagamentos')
 
 @section('content')
@@ -14,7 +15,7 @@
 
             <div class="mb-3">
                 <a href="{{ route('pagamentos.create') }}" class="btn btn-success">
-                    <i class="bi bi-plus-lg"></i>Novo Pagamento
+                    <i class="bi bi-plus-lg"></i> Novo Pagamento
                 </a>
             </div>
 

@@ -7,31 +7,54 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServicoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Models\Agendamento; 
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('/dashboard', function (Request $request) {
 
     if ($request->user()->role === 'admin') {
         return redirect()->route('clientes.index');
     }
-
-    return view('dashboard');
     
+    $agendamentos = Agendamento::with('servico')
+        ->where('cliente_id', $request->user()->cliente->id)
+        ->orderBy('data_hora', 'desc')
+        ->get();
+    
+    return view('dashboard', compact('agendamentos'));
+
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::middleware('auth')->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('clientes', ClienteController::class);
-    Route::resource('servicos', ServicoController::class);
-    Route::resource('agendamentos', AgendamentoController::class);
-    Route::resource('pagamentos', PagamentoController::class);
+    
+    // --- Cliente ---
+    
+    Route::get('/meus-agendamentos/novo', [AgendamentoController::class, 'createForClient'])->name('agendamentos.createForClient');
+
+
+    // --- Admin ---
+    Route::middleware('admin')->group(function () {
+        
+        Route::resource('clientes', ClienteController::class);
+        Route::resource('servicos', ServicoController::class);
+                
+        Route::resource('agendamentos', AgendamentoController::class)->except(['store']); 
+        
+        Route::resource('pagamentos', PagamentoController::class);
+    });
+    
+    Route::post('/agendamentos', [AgendamentoController::class, 'store'])->name('agendamentos.store');
 });
 
-require __DIR__.'/auth.php';
 
+require __DIR__.'/auth.php';

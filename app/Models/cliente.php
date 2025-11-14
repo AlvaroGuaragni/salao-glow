@@ -11,14 +11,20 @@ class Cliente extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'nome',
+        'cpf',
         'email',
         'telefone',
-        'cpf',
     ];
 
     public function agendamentos()
     {
         return $this->hasMany(Agendamento::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

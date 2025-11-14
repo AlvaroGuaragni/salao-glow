@@ -1,4 +1,5 @@
-@extends('base')
+@extends('layouts.base') {{-- Corrigido de 'base' para 'layouts.base' --}}
+
 @section('title', 'Lista de Agendamentos')
 
 @section('content')
@@ -14,7 +15,7 @@
 
             <div class="mb-3">
                 <a href="{{ route('agendamentos.create') }}" class="btn btn-success">
-                    <i class="bi bi-plus-lg"></i>Novo Agendamento
+                    <i class="bi bi-plus-lg"></i> Novo Agendamento
                 </a>
             </div>
 

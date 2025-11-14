@@ -1,27 +1,19 @@
 <?php
-
 namespace App\Http\Controllers;
-
-use App\Http\Requests\StoreClienteRequest;
-use Illuminate\Http\Request;
 use App\Models\Cliente;
-use App\Models\Agendamento;
+use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
     public function index(Request $request)
     {
         $query = Cliente::query();
-
         if ($request->has('busca')) {
-            $busca = $request->input('busca');
-            $query->where('nome', 'like', "%{$busca}%")
-                  ->orWhere('cpf', 'like', "%{$busca}%")
-                  ->orWhere('email', 'like', "%{$busca}%");
+            $query->where('nome', 'like', '%' . $request->busca . '%')
+                  ->orWhere('cpf', 'like', '%' . $request->busca . '%')
+                  ->orWhere('email', 'like', '%' . $request->busca . '%');
         }
-
-        $clientes = $query->get();
-
+        $clientes = $query->paginate(15);
         return view('cliente.list', compact('clientes'));
     }
 
@@ -35,14 +27,13 @@ class ClienteController extends Controller
     {
         $request->validate([
             'nome' => 'required|string|max:255',
-            'cpf' => 'required|string|max:14|unique:clientes,cpf',
-            'email' => 'nullable|email|max:255',
+            'cpf' => 'required|string|max:20|unique:clientes',
+            'email' => 'nullable|email|max:255|unique:clientes',
             'telefone' => 'nullable|string|max:20',
         ]);
 
         Cliente::create($request->all());
-
-        return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado com sucesso!');
+        return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado com sucesso.');
     }
 
     public function edit(Cliente $cliente)
@@ -54,19 +45,18 @@ class ClienteController extends Controller
     {
         $request->validate([
             'nome' => 'required|string|max:255',
-            'cpf' => 'required|string|max:14|unique:clientes,cpf,' . $cliente->id,
-            'email' => 'nullable|email|max:255',
+            'cpf' => 'required|string|max:20|unique:clientes,cpf,' . $cliente->id,
+            'email' => 'nullable|email|max:255|unique:clientes,email,' . $cliente->id,
             'telefone' => 'nullable|string|max:20',
         ]);
 
         $cliente->update($request->all());
-
-        return redirect()->route('clientes.index')->with('success', 'Cliente atualizado com sucesso!');
+        return redirect()->route('clientes.index')->with('success', 'Cliente atualizado com sucesso.');
     }
 
     public function destroy(Cliente $cliente)
     {
         $cliente->delete();
-        return redirect()->route('clientes.index')->with('success', 'Cliente removido com sucesso!');
+        return redirect()->route('clientes.index')->with('success', 'Cliente excluído com sucesso.');
     }
 }
