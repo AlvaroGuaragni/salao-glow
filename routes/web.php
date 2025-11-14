@@ -13,9 +13,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('/dashboard', function (Request $request) {
-
     if ($request->user()->role === 'admin') {
         return redirect()->route('clientes.index');
     }
@@ -26,35 +24,33 @@ Route::get('/dashboard', function (Request $request) {
         ->get();
     
     return view('dashboard', compact('agendamentos'));
-
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
 Route::middleware('auth')->group(function () {
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     
-    // --- Cliente ---
-    
+ 
     Route::get('/meus-agendamentos/novo', [AgendamentoController::class, 'createForClient'])->name('agendamentos.createForClient');
+    
 
+    Route::get('/servicos-disponiveis', [ServicoController::class, 'listForClient'])->name('servicos.listForClient');
+    
+    Route::get('/meus-pagamentos', [PagamentoController::class, 'listForClient'])->name('pagamentos.listForClient');
 
-    // --- Admin ---
+    Route::post('/agendamentos', [AgendamentoController::class, 'store'])->name('agendamentos.store');
+    
+    
     Route::middleware('admin')->group(function () {
         
         Route::resource('clientes', ClienteController::class);
         Route::resource('servicos', ServicoController::class);
-                
+        
         Route::resource('agendamentos', AgendamentoController::class)->except(['store']); 
         
         Route::resource('pagamentos', PagamentoController::class);
     });
-    
-    Route::post('/agendamentos', [AgendamentoController::class, 'store'])->name('agendamentos.store');
 });
-
 
 require __DIR__.'/auth.php';

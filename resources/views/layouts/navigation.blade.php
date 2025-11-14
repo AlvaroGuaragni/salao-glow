@@ -10,10 +10,20 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
+                <!-- Navigation Links (MENU DO CLIENTE) -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Meus Agendamentos') }}
+                    </x-nav-link>
+                    
+                    <!-- NOVO LINK DE SERVIÇOS -->
+                    <x-nav-link :href="route('servicos.listForClient')" :active="request()->routeIs('servicos.listForClient')">
+                        {{ __('Ver Serviços') }}
+                    </x-nav-link>
+
+                    <!-- NOVO LINK DE PAGAMENTOS -->
+                    <x-nav-link :href="route('pagamentos.listForClient')" :active="request()->routeIs('pagamentos.listForClient')">
+                        {{ __('Meus Pagamentos') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -35,7 +45,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Meu Perfil') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -45,7 +55,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Sair (Logout)') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -64,11 +74,21 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
+    <!-- Responsive Navigation Menu (MENU MOBILE DO CLIENTE) -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('Meus Agendamentos') }}
+            </x-responsive-nav-link>
+
+            <!-- NOVO LINK DE SERVIÇOS -->
+            <x-responsive-nav-link :href="route('servicos.listForClient')" :active="request()->routeIs('servicos.listForClient')">
+                {{ __('Ver Serviços') }}
+            </x-responsive-nav-link>
+
+            <!-- NOVO LINK DE PAGAMENTOS -->
+            <x-responsive-nav-link :href="route('pagamentos.listForClient')" :active="request()->routeIs('pagamentos.listForClient')">
+                {{ __('Meus Pagamentos') }}
             </x-responsive-nav-link>
         </div>
 
@@ -81,7 +101,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('Meu Perfil') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -91,7 +111,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Sair (Logout)') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

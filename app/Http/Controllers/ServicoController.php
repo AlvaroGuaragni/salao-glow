@@ -53,4 +53,14 @@ class ServicoController extends Controller
         $servico->delete();
         return redirect()->route('servicos.index')->with('success', 'Serviço excluído com sucesso.');
     }
+
+    public function listForClient(Request $request)
+    {
+        $query = Servico::query();
+        if ($request->has('busca')) {
+            $query->where('nome', 'like', '%' . $request->busca . '%');
+        }
+        $servicos = $query->orderBy('nome')->paginate(10);
+        return view('servicos.list-cliente', compact('servicos'));
+    }
 }

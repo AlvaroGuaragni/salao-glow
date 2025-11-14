@@ -15,7 +15,7 @@
 
 <body class="bg-light-subtle">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #cf38b1ff;">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #5f5a5eff;">
             <div class="container">
                 <a class="navbar-brand" href="/">Salão Glow</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

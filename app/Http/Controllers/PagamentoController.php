@@ -54,4 +54,16 @@ class PagamentoController extends Controller
         $pagamento->delete();
         return redirect()->route('pagamentos.index')->with('success', 'Pagamento excluído.');
     }
+
+    public function listForClient(Request $request)
+    {
+        $clienteId = Auth::user()->cliente->id;
+        $pagamentos = Pagamento::with('agendamento.servico')
+            ->whereHas('agendamento', function ($query) use ($clienteId) {
+                $query->where('cliente_id', $clienteId);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return view('pagamento.list-cliente', compact('pagamentos'));
+    }
 }

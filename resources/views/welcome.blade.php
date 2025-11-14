@@ -46,8 +46,5 @@
                 </div>
             </div>
         </div>
-        <div>
-            <img src="resources/imagens/pngtree-stunning-purple-orchids-with-intricate-patterns-png-image_20266978.png">
-        </div>
     </div>
 @endsection
