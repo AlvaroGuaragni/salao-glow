@@ -1,5 +1,4 @@
 @extends('base')
-
 @section('title', 'Lista de Pagamentos')
 
 @section('content')
@@ -14,7 +13,9 @@
             </form>
 
             <div class="mb-3">
-                <a href="{{ route('pagamentos.create') }}" class="btn btn-success">Novo Pagamento</a>
+                <a href="{{ route('pagamentos.create') }}" class="btn btn-success">
+                    <i class="bi bi-plus-lg"></i>Novo Pagamento
+                </a>
             </div>
 
             @if($pagamentos->count() > 0)

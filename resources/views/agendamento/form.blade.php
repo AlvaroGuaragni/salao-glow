@@ -1,5 +1,4 @@
 @extends('base')
-
 @section('title', isset($agendamento->id) ? 'Editar Agendamento' : 'Novo Agendamento')
 
 @section('content')

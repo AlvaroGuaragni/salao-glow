@@ -14,7 +14,7 @@
                 @endif
 
                 <div class="mb-3">
-                    <label for="nome" class="form-label">Nome *</label>
+                    <label for="nome" class="form-label">Nome</label>
                     <input type="text" id="nome" name="nome" class="form-control" value="{{ old('nome', $servico->nome) }}" required>
                 </div>
 
@@ -24,12 +24,12 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="preco" class="form-label">Preço (R$) *</label>
+                    <label for="preco" class="form-label">Preço (R$)</label>
                     <input type="number" id="preco" name="preco" class="form-control" step="0.01" min="0" value="{{ old('preco', $servico->preco) }}" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="duracao" class="form-label">Duração (minutos) *</label>
+                    <label for="duracao" class="form-label">Duração (minutos)</label>
                     <input type="number" id="duracao" name="duracao" class="form-control" min="1" value="{{ old('duracao', $servico->duracao) }}" required>
                 </div>
 

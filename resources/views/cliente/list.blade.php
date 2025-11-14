@@ -1,5 +1,4 @@
 @extends('base')
-
 @section('title', 'Lista de Clientes')
 
 @section('content')
@@ -14,7 +13,9 @@
             </form>
 
             <div class="mb-3">
-                <a href="{{ route('clientes.create') }}" class="btn btn-success">Novo Cliente</a>
+                <a href="{{ route('clientes.create') }}" class="btn btn-success">
+                    <i class="bi bi-plus-lg"></i>Novo Cliente
+                </a>
             </div>
 
             @if($clientes->count() > 0)

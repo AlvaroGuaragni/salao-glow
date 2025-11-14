@@ -1,5 +1,4 @@
 @extends('base')
-
 @section('title', isset($cliente->id) ? 'Editar Cliente' : 'Novo Cliente')
 
 @section('content')

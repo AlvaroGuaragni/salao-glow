@@ -1,5 +1,4 @@
 @extends('base')
-
 @section('title', isset($pagamento->id) ? 'Editar Pagamento' : 'Novo Pagamento')
 
 @section('content')
